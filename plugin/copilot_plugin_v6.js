@@ -1,24 +1,23 @@
 Draw.loadPlugin(function(ui) {
 
-  // Confirm plugin loads
   console.log("Copilot plugin loaded");
 
-  // Add action
+  // Create action
   ui.actions.addAction("copilotConvertPhoto", function() {
     mxUtils.alert("Copilot menu works ✅");
   });
 
-  // Wait until menus are ready
-  ui.addListener(mxEvent.INIT, function() {
+  // Proper way to add menu item
+  var oldCreateMenus = ui.menus.createMenus;
 
-    var extras = ui.menus.get("extras");
+  ui.menus.createMenus = function() {
+    oldCreateMenus.apply(this, arguments);
 
-    if (extras != null) {
-      extras.addItem("Copilot Convert Photo", null, function() {
-        ui.actions.get("copilotConvertPhoto").funct();
-      });
+    var menu = ui.menus.get('extras');
+
+    if (menu != null) {
+      ui.menus.addMenuItem(menu, 'copilotConvertPhoto');
     }
-
-  });
+  };
 
 });
