@@ -7,14 +7,13 @@ Draw.loadPlugin(function(ui) {
     mxUtils.alert("Copilot menu works ✅");
   });
 
-  // Proper way to add menu item
+  // Add menu item under Extras (compatible approach)
   var oldCreateMenus = ui.menus.createMenus;
 
   ui.menus.createMenus = function() {
     oldCreateMenus.apply(this, arguments);
 
     var menu = ui.menus.get('extras');
-
     if (menu != null) {
       ui.menus.addMenuItem(menu, 'copilotConvertPhoto');
     }
